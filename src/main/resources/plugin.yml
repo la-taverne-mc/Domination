@@ -4,3 +4,8 @@ name: Domination
 version: "1.0"
 author: PoC4
 main: me.lataverne.domination.Main
+commands:
+  domination:
+    aliases: ["dom", "d"]
+    description: Commande de base du plugin Domination
+    permission: domination.commands
