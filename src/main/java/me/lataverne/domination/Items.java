@@ -6,9 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.jetbrains.annotations.Nullable;
 
 public enum Items {
     FIREBALL_WAND("fireball_wand"),
@@ -17,7 +15,7 @@ public enum Items {
     private final String name;
     private final ItemStack item;
 
-    private Items(String name) {
+    Items(String name) {
         this.name = name;
 
         ItemStack item;
@@ -52,6 +50,7 @@ public enum Items {
         ItemMeta itemMeta = item.getItemMeta();
 
         itemMeta.setDisplayName("§fJugement enflame");
+
         item.setItemMeta(itemMeta);
         return item;
     }
@@ -68,7 +67,27 @@ public enum Items {
             testItem.setItemMeta(itemMeta);
         }
 
-        return this.item.getType() == testItem.getType() && this.item.hasItemMeta() == testItem.hasItemMeta() && (this.item.hasItemMeta() ? Bukkit.getItemFactory().equals(this.item.getItemMeta(), testItem.getItemMeta()) : true);
-    
+        return this.item.getType() == testItem.getType() && this.item.hasItemMeta() == testItem.hasItemMeta() && (!this.item.hasItemMeta() || Bukkit.getItemFactory().equals(this.item.getItemMeta(), testItem.getItemMeta()));
+    }
+
+    public static Boolean contains(@NotNull ItemStack testItem) {
+        for (Items item : Items.values()) {
+            if (item.compareTo(testItem)) return true;
+        }
+        return false;
+    }
+
+    public static Boolean contains(@NotNull String testString) {
+        for (Items item : Items.values()) {
+            if (item.getName().equalsIgnoreCase(testString)) return true;
+        }
+        return false;
+    }
+
+    public static @Nullable ItemStack getItemNamed(@NotNull String itemName) {
+        for (Items item : Items.values()) {
+            if (item.getName().equalsIgnoreCase(itemName)) return item.getItem();
+        }
+        return null;
     }
 }
