@@ -15,37 +15,23 @@ import java.util.Map;
 
 public class FireWandListener implements Listener {
 
-    private Map<String, Long> cooldowns = new HashMap<>();
 
     @EventHandler
     public void onUse(PlayerInteractEvent event) {
-
-
         ItemStack item;
+
         if (event.getHand() == EquipmentSlot.HAND) {
             item = event.getPlayer().getInventory().getItemInMainHand();
         } else {
             item = event.getPlayer().getInventory().getItemInOffHand();
 
         }
-    //    System.out.println(item);
-    //    System.out.println(Items.FIREBALL_WAND.compareTo(item));
+
+        if(event.getPlayer().hasCooldown(item.getType()))
+            return;
         if (Items.FIREBALL_WAND.compareTo(item)) {
 
-            //verified if player not have cooldowns ago
-            if(cooldowns.containsKey(event.getPlayer().getName()))
-            {
-                int seconds = 3;
-                long timeToWait = (cooldowns.get(event.getPlayer().getName()) / 1000 ) + seconds ;
-                long timeleft = timeToWait - System.currentTimeMillis() /1000;
-                if(timeleft > 0){
-                 //   event.getPlayer().sendMessage("Rechargement en cours, besoin de "+timeleft+" seconde avant de lancer un sort");
-                    event.setCancelled(true);
-                    return;
-                }
-            }
-            cooldowns.put(event.getPlayer().getName(), System.currentTimeMillis());
-            event.getPlayer().setCooldown(Material.REDSTONE_TORCH,20*3);
+            event.getPlayer().setCooldown(item.getType(),20*3);
 
             event.getPlayer().launchProjectile(SmallFireball.class);
         }

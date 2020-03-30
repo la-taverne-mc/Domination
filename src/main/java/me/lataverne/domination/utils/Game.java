@@ -1,6 +1,7 @@
 package me.lataverne.domination.utils;
 
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 public class Game {
     public String name;
@@ -8,7 +9,6 @@ public class Game {
     public int score;
 
     public Flag[] flags;
-    public Player[] redTeam;
-    public Player[] blueTeam;
-
+    Team red;
+    Team blue;
 }
