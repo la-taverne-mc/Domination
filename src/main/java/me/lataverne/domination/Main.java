@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.lataverne.domination.commands.DominationCommand;
+import me.lataverne.domination.listeners.HealingWandListener;
+import me.lataverne.domination.listeners.JoinListener;
 
 public class Main extends JavaPlugin {
     public static List<String> games = new ArrayList<String>();
@@ -14,6 +17,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         registerCommands();
+        registerListeners();
         
     	getLogger().log(Level.INFO, "Domination has been successfully enabled");
     }
@@ -26,5 +30,11 @@ public class Main extends JavaPlugin {
     private void registerCommands() {
         getCommand("domination").setExecutor(new DominationCommand());
     }
+    
+    private void registerListeners() {
+        PluginManager pluginManager = getServer().getPluginManager();
 
+        pluginManager.registerEvents(new HealingWandListener(), this);
+        pluginManager.registerEvents(new JoinListener(), this);
+    }
 }
