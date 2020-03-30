@@ -7,8 +7,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum Items {
-    FIREBALL_WAND("fireball_wand");
+    FIREBALL_WAND("fireball_wand"),
+    HEAL_WAND("heal_wand");
 
     private final String name;
     private final ItemStack item;
@@ -20,9 +24,12 @@ public enum Items {
 
         switch (name) {
             case "fireball_wand":
+                item = createFireWand();
+                break;
+            case "heal_wand":
                 item = createHealingWand();
                 break;
-            
+
             default:
                 item = new ItemStack(Material.AIR);
                 break;
@@ -35,8 +42,16 @@ public enum Items {
         ItemStack item = new ItemStack(Material.STICK);
         ItemMeta itemMeta = item.getItemMeta();
 
-        itemMeta.setDisplayName("§fBoule de feu");
+        itemMeta.setDisplayName("§fPardon divin");
 
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createFireWand() {
+        ItemStack item = new ItemStack(Material.REDSTONE_TORCH);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§fJugement enflame");
         item.setItemMeta(itemMeta);
         return item;
     }

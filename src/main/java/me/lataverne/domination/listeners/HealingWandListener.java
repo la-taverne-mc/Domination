@@ -19,7 +19,7 @@ public class HealingWandListener implements Listener {
             item = event.getPlayer().getInventory().getItemInOffHand();
         }
 
-        if (Items.FIREBALL_WAND.compareTo(item)) {
+        if (Items.HEAL_WAND.compareTo(item)) {
             event.getPlayer().launchProjectile(SmallFireball.class);
         }
     }

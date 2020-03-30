@@ -20,7 +20,7 @@ public class DominationCommand implements TabExecutor {
                         sender.sendMessage(args[1]);
                         Main.games.add(args[1]);
                     } else {
-                        sender.sendMessage("§cIl te manque un argument");
+                        sender.sendMessage("§cIl te manque un argument: /Domination create <name_game>");
                     }
                     return true;
 
@@ -45,7 +45,6 @@ public class DominationCommand implements TabExecutor {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        
         return null;
     }
 }

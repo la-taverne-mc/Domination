@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+import me.lataverne.domination.listeners.FireWandListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,7 +35,8 @@ public class Main extends JavaPlugin {
     private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
 
-        pluginManager.registerEvents(new HealingWandListener(), this);
+       // pluginManager.registerEvents(new HealingWandListener(), this);
+        pluginManager.registerEvents(new FireWandListener(), this);
         pluginManager.registerEvents(new JoinListener(), this);
     }
 }
