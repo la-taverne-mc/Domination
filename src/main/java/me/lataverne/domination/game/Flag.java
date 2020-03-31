@@ -48,7 +48,7 @@ public class Flag {
     }
 
     public void deactivate() {
-        task.cancel();
+        if (task != null && !task.isCancelled()) task.cancel();
         bossBar.removeAll();
     }
 
