@@ -60,7 +60,7 @@ public class ItemsCommand implements TabExecutor {
         List<String> list = Lists.newArrayList();
 
         for (Items item : Items.values()) {
-            list.add(item.getName());
+            if (item.getName().toLowerCase().startsWith(args[0].toLowerCase())) list.add(item.getName());
         }
 
         return list;
