@@ -10,7 +10,18 @@ import org.jetbrains.annotations.Nullable;
 
 public enum Items {
     FIREBALL_WAND("fireball_wand"),
-    HEAL_WAND("healing_wand");
+    HEAL_WAND("healing_wand"),
+    TELEPORT_WAND("teleport_wand"),
+    WING_OUTFIELDER("wing_outfielder"),
+    SWORD_OUTFIELDDER("sword_outfielder"),
+    SHIELD_OUTFIELDER("shield_outfielder"),
+    TROUSSERS_OUTFIELDER("troussers_outfielder"),
+    ARC_ARCHER("arc_archer"),
+    ARMOR_ARCHER("armor_archer"),
+    FEET_ARCHER("feet_archer"),
+    GLOWING_ARROW("glowing_arrow"),
+    DAMAGE_ARROW("damage_arrow"),
+    TNT_ARROW("tnt_arrow");
 
     private final String name;
     private final ItemStack item;
