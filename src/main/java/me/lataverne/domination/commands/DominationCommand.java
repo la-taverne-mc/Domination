@@ -35,20 +35,20 @@ public class DominationCommand implements TabExecutor {
                     }
                     return true;
                 //dom flag {nom_game} : donne une balise, qui créer les drapeau au clic et l'ajout
-                case "flag":
-                    if (args.length >= 2) {
-                        sender.sendMessage(args[1]);
-                    } else {
-                        sender.sendMessage("§cIl te manque un argument: /Domination create <name_game>");
-                    }
-                    return true;
-                //dom radius {nom_game} {radius} : défini la taille de la zone des flags
-                case "radius":
-
-                //dom spawnpoint {team} {nom_game} set le spawn point de l'équipe bleu
-                case "spawnpoint":
-                ///dom win {nom_game} {score} : défini le score a atteindre pour gagner
-                case "scorewin":
+//                case "flag":
+//                    if (args.length >= 2) {
+//                        sender.sendMessage(args[1]);
+//                    } else {
+//                        sender.sendMessage("§cIl te manque un argument: /Domination create <name_game>");
+//                    }
+//                    return true;
+//                //dom radius {nom_game} {radius} : défini la taille de la zone des flags
+//                case "radius":
+//
+//                //dom spawnpoint {team} {nom_game} set le spawn point de l'équipe bleu
+//                case "spawnpoint":
+//                ///dom win {nom_game} {score} : défini le score a atteindre pour gagner
+//                case "scorewin":
 
                 default:
                     sender.sendMessage("§cCet argument n'existe pas");

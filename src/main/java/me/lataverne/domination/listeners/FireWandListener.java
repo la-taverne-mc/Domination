@@ -32,7 +32,7 @@ public class FireWandListener implements Listener {
         if (Items.FIREBALL_WAND.compareTo(item)) {
 
             event.getPlayer().setCooldown(item.getType(),20*3);
-
+           //interdire la poce de block
             event.getPlayer().launchProjectile(SmallFireball.class);
         }
     }
