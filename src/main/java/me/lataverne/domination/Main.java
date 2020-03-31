@@ -1,23 +1,24 @@
 package me.lataverne.domination;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
-import me.lataverne.domination.commands.ItemsCommand;
-import me.lataverne.domination.listeners.FireballWandListener;
-import me.lataverne.domination.listeners.HealingWandListener;
-import me.lataverne.domination.listeners.PreventBlockPlacing;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.lataverne.domination.commands.DominationCommand;
+import me.lataverne.domination.commands.ItemsCommand;
+import me.lataverne.domination.game.Games;
+import me.lataverne.domination.listeners.FireballWandListener;
+import me.lataverne.domination.listeners.HealingWandListener;
+import me.lataverne.domination.listeners.PreventBlockPlacing;
 
 public class Main extends JavaPlugin {
-    public static List<String> games = new ArrayList<String>();
+    private Games games;
 
     @Override
     public void onEnable() {
+        loadGames();
+
         registerCommands();
         registerListeners();
         
@@ -29,8 +30,12 @@ public class Main extends JavaPlugin {
         getLogger().log(Level.INFO, "Domination has been successfully disabled");
     }
 
+    private void loadGames() {
+        games = new Games();
+    }
+
     private void registerCommands() {
-        getCommand("domination").setExecutor(new DominationCommand());
+        getCommand("domination").setExecutor(new DominationCommand(games));
         getCommand("items").setExecutor(new ItemsCommand());
     }
     

@@ -4,11 +4,11 @@ import java.util.regex.Pattern;
 
 public class NumericUtils {
     public static boolean isDouble(String str) {
-        final String Digits     = "(\\p{Digit}+)";
-        final String HexDigits  = "(\\p{XDigit}+)";
+        final String digits     = "(\\p{Digit}+)";
+        final String hexDigits  = "(\\p{XDigit}+)";
         // an exponent is 'e' or 'E' followed by an optionally 
         // signed decimal integer.
-        final String Exp        = "[eE][+-]?"+Digits;
+        final String exp        = "[eE][+-]?"+digits;
         final String fpRegex    =
             ("[\\x00-\\x20]*"+ // Optional leading "whitespace"
             "[+-]?(" +         // Optional sign character
@@ -26,23 +26,33 @@ public class NumericUtils {
             // edition, section 3.10.2.
 
             // Digits ._opt Digits_opt ExponentPart_opt FloatTypeSuffix_opt
-            "((("+Digits+"(\\.)?("+Digits+"?)("+Exp+")?)|"+
+            "((("+digits+"(\\.)?("+digits+"?)("+exp+")?)|"+
 
             // . Digits ExponentPart_opt FloatTypeSuffix_opt
-            "(\\.("+Digits+")("+Exp+")?)|"+
+            "(\\.("+digits+")("+exp+")?)|"+
 
             // Hexadecimal strings
             "((" +
             // 0[xX] HexDigits ._opt BinaryExponent FloatTypeSuffix_opt
-            "(0[xX]" + HexDigits + "(\\.)?)|" +
+            "(0[xX]" + hexDigits + "(\\.)?)|" +
 
             // 0[xX] HexDigits_opt . HexDigits BinaryExponent FloatTypeSuffix_opt
-            "(0[xX]" + HexDigits + "?(\\.)" + HexDigits + ")" +
+            "(0[xX]" + hexDigits + "?(\\.)" + hexDigits + ")" +
 
-            ")[pP][+-]?" + Digits + "))" +
+            ")[pP][+-]?" + digits + "))" +
             "[fFdD]?))" +
             "[\\x00-\\x20]*");// Optional trailing "whitespace"
 
         return Pattern.matches(fpRegex, str);
+    }
+
+    public static boolean isInteger(String str) {
+        final String digits     = "(\\p{Digit}+)";
+        final String iRegex     = 
+            ("[\\x00-\\x20]*" +
+            "[+-]?" + digits +
+            "[\\x00-\\x20]*");
+
+        return Pattern.matches(iRegex, str);
     }
 }
