@@ -1,6 +1,6 @@
 package me.lataverne.domination.listeners;
 
-import me.lataverne.domination.Items;
+import me.lataverne.domination.enums.Items;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;

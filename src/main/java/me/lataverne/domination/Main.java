@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import me.lataverne.domination.commands.ItemsCommand;
-import me.lataverne.domination.listeners.FireWandListener;
+import me.lataverne.domination.listeners.FireballWandListener;
 import me.lataverne.domination.listeners.HealingWandListener;
 import me.lataverne.domination.listeners.PreventBlockPlacing;
 import org.bukkit.plugin.PluginManager;
@@ -39,6 +39,6 @@ public class Main extends JavaPlugin {
 
         pluginManager.registerEvents(new PreventBlockPlacing(), this);
         pluginManager.registerEvents(new HealingWandListener(), this);
-        pluginManager.registerEvents(new FireWandListener(), this);
+        pluginManager.registerEvents(new FireballWandListener(), this);
     }
 }

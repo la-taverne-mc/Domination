@@ -1,4 +1,4 @@
-package me.lataverne.domination;
+package me.lataverne.domination.enums;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 public enum Items {
     FIREBALL_WAND("fireball_wand"),
-    HEAL_WAND("heal_wand");
+    HEAL_WAND("healing_wand");
 
     private final String name;
     private final ItemStack item;
@@ -22,9 +22,9 @@ public enum Items {
 
         switch (name) {
             case "fireball_wand":
-                item = createFireWand();
+                item = createFireballWand();
                 break;
-            case "heal_wand":
+            case "healing_wand":
                 item = createHealingWand();
                 break;
 
@@ -45,7 +45,8 @@ public enum Items {
         item.setItemMeta(itemMeta);
         return item;
     }
-    private ItemStack createFireWand() {
+    
+    private ItemStack createFireballWand() {
         ItemStack item = new ItemStack(Material.REDSTONE_TORCH);
         ItemMeta itemMeta = item.getItemMeta();
 

@@ -1,7 +1,7 @@
 package me.lataverne.domination.commands;
 
 import com.google.common.collect.Lists;
-import me.lataverne.domination.Items;
+import me.lataverne.domination.enums.Items;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
