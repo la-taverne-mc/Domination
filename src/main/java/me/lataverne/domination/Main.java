@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.lataverne.domination.commands.DominationCommand;
 import me.lataverne.domination.commands.ItemsCommand;
 import me.lataverne.domination.game.Games;
+import me.lataverne.domination.listeners.DeathListener;
 import me.lataverne.domination.listeners.FireballWandListener;
 import me.lataverne.domination.listeners.HealingWandListener;
 import me.lataverne.domination.listeners.PreventBlockPlacing;
@@ -43,6 +44,8 @@ public class Main extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
 
         pluginManager.registerEvents(new PreventBlockPlacing(), this);
+        pluginManager.registerEvents(new DeathListener(), this);
+
         pluginManager.registerEvents(new HealingWandListener(), this);
         pluginManager.registerEvents(new FireballWandListener(), this);
     }
