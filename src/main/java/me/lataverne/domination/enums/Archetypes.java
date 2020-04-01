@@ -1,6 +1,6 @@
 package me.lataverne.domination.enums;
 
-public enum Specialities {
+public enum Archetypes {
     ARCHER,
     MAGICIAN,
     OUTFIELDER; //voltigeur

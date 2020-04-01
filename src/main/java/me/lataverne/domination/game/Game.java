@@ -1,6 +1,8 @@
 package me.lataverne.domination.game;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import com.google.common.collect.Lists;
 
@@ -9,7 +11,9 @@ import org.bukkit.Location;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import me.lataverne.domination.enums.Archetypes;
 import me.lataverne.domination.tasks.GameTask;
 
 public class Game {
@@ -18,6 +22,7 @@ public class Game {
     private List<Flag> flags;
     private BukkitTask task;
     private boolean isRunning;
+    private Map<UUID, Archetypes> playersArchetypes;
 
     public Game(@NotNull String name) {
         this.plugin = Bukkit.getPluginManager().getPlugin("Domination");
@@ -27,6 +32,13 @@ public class Game {
 
     public String getName() { return name; }
     public boolean isRunning() { return isRunning; }
+
+    public @Nullable Archetypes getPlayerSpecialty(@NotNull UUID playerUuid) { return playersArchetypes.get(playerUuid); }
+    
+    public void setPlayerSpecialty(@NotNull UUID playerUuid, @NotNull Archetypes archetype) {
+        if (playersArchetypes.containsKey(playerUuid)) playersArchetypes.replace(playerUuid, archetype);
+        else playersArchetypes.put(playerUuid, archetype);
+    }
 
     public void createFlag(@NotNull String flagName, @NotNull Location flagLocation, @NotNull double flagRadius, @NotNull double bossBarRadius) {
         flags.add(new Flag(flagName, flagLocation, flagRadius, bossBarRadius));

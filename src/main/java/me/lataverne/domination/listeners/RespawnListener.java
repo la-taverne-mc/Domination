@@ -1,8 +1,8 @@
 package me.lataverne.domination.listeners;
 
-import me.lataverne.domination.Game;
+import me.lataverne.domination.game.Game;
 import me.lataverne.domination.enums.Items;
-import me.lataverne.domination.enums.Specialities;
+import me.lataverne.domination.enums.Archetypes;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
