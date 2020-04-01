@@ -38,6 +38,39 @@ public enum Items {
             case "healing_wand":
                 item = createHealingWand();
                 break;
+            case "wing_outfielder":
+                item = createWingOutfielder();
+                break;
+            case "sword_outfielder":
+                item = createSwordOutfielder();
+                break;
+            case "shield_outfielder":
+                item = createShieldOutfielder();
+                break;
+            case "troussers_outfielder":
+                item = createTroussersOutfielder();
+                break;
+            case "arc_archer":
+                item = createArcArcher();
+                break;
+            case "armor_archer":
+                item = createArmorArcher();
+                break;
+            case "feet_archer":
+                item = createFeetArcher();
+                break;
+            case "glowing_arrow":
+                item = createGlowingArrow();
+                break;
+            case "damage_arrow":
+                item = createDamageArrow();
+                break;
+            case "tnt_arrow":
+                item = createTntArrow();
+                break;
+            case "teleport_wand":
+                item = createteleportWand();
+                break;
 
             default:
                 item = new ItemStack(Material.AIR);
@@ -56,7 +89,6 @@ public enum Items {
         item.setItemMeta(itemMeta);
         return item;
     }
-    
     private ItemStack createFireballWand() {
         ItemStack item = new ItemStack(Material.REDSTONE_TORCH);
         ItemMeta itemMeta = item.getItemMeta();
@@ -66,6 +98,90 @@ public enum Items {
         item.setItemMeta(itemMeta);
         return item;
     }
+    private ItemStack createteleportWand() {
+        ItemStack item = new ItemStack(Material.BLAZE_ROD);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§fBâton de transfert ");
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createWingOutfielder() {
+        ItemStack item = new ItemStack(Material.ELYTRA);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§fAiles de voltigeur");
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createSwordOutfielder() {
+        ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§fBras droit du voltigeur ");
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createShieldOutfielder() {
+        ItemStack item = new ItemStack(Material.SHIELD);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName("§fBras gauche du Voltigeur");
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createTroussersOutfielder() {
+        ItemStack item = new ItemStack(Material.LEATHER_LEGGINGS);
+        ItemMeta itemMeta = item.getItemMeta();
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createArcArcher() {
+        ItemStack item = new ItemStack(Material.BOW);
+        ItemMeta itemMeta = item.getItemMeta();
+//todo enchantement inifinity
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createFeetArcher() {
+        ItemStack item = new ItemStack(Material.LEATHER_BOOTS);
+        ItemMeta itemMeta = item.getItemMeta();
+//todo enchantement rapidité
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createArmorArcher() {
+        ItemStack item = new ItemStack(Material.LEATHER_CHESTPLATE);
+        ItemMeta itemMeta = item.getItemMeta();
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createGlowingArrow() {
+        ItemStack item = new ItemStack(Material.SPECTRAL_ARROW);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createDamageArrow() {
+        ItemStack item = new ItemStack(Material.ARROW);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private ItemStack createTntArrow() {
+        ItemStack item = new ItemStack(Material.TIPPED_ARROW);
+        ItemMeta itemMeta = item.getItemMeta();
+//todo tnt explosion
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
 
     public String getName() { return this.name; }
     public ItemStack getItem() { return this.item.clone(); }

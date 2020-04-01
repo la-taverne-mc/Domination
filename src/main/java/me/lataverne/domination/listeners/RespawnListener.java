@@ -12,10 +12,10 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 
 
 public class RespawnListener implements Listener {
-    @EventHandler
+    /*@EventHandler
     public void onPlayerRespawn (PlayerRespawnEvent event) {
         //récupérer la game du joueur
-         Game game= player().getGame();
+        Game game= player().getGame();
         //récupéré la team du joueur
         // Team team= player().getTeam();
         //récupéré l'emplacement du spawn de la team du joueur dans cette game
@@ -28,7 +28,7 @@ public class RespawnListener implements Listener {
 
         //Récupérer la class du joueur
          Specialities speciality = game.players_specialities.get();
-         switch (speciality){
+         switch (speciality.toString()){
              case "ARCHER":
                  event.getPlayer().getInventory().addItem(Items.ARC_ARCHER.getItem());
                  event.getPlayer().getInventory().addItem(Items.ARMOR_ARCHER.getItem());
@@ -45,5 +45,5 @@ public class RespawnListener implements Listener {
          }
 
     }
-
+*/
 }
