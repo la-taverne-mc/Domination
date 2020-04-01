@@ -33,11 +33,12 @@ public class FlagTask extends BukkitRunnable {
     public void run() {
         List<Player> bossBarPlayers = Lists.newArrayList();
         for (Entity entity : world.getNearbyEntities(centerLocation, bossBarRadius*2, bossBarRadius*2, bossBarRadius*2, PredicateUtils.isPlayer())) {
-            bossBarPlayers.add((Player) entity);
+            if (centerLocation.distanceSquared(entity.getLocation()) <= bossBarRadius*bossBarRadius) bossBarPlayers.add((Player) entity);
         }
         flag.setBossBarPlayers(bossBarPlayers);
 
         for (Entity entity : world.getNearbyEntities(centerLocation, radius*2, radius*2, radius*2, PredicateUtils.isPlayer())) {
+            if (centerLocation.distanceSquared(entity.getLocation()) <= radius*radius);
             // TODO check players team and count points accordingly
         }
     }
