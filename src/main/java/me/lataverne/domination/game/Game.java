@@ -8,8 +8,10 @@ import com.google.common.collect.Lists;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,11 +25,15 @@ public class Game {
     private BukkitTask task;
     private boolean isRunning;
     private Map<UUID, Archetypes> playersArchetypes;
+    public TeamDom red;
+    public TeamDom blue;
 
     public Game(@NotNull String name) {
         this.plugin = Bukkit.getPluginManager().getPlugin("Domination");
         this.name = name;
         this.flags = Lists.newArrayList();
+        this.red = new TeamDom("red");
+        this.blue = new TeamDom("blue");
     }
 
     public String getName() { return name; }
@@ -68,5 +74,41 @@ public class Game {
 
         isRunning = false;
         return true;
+    }
+
+    //todo voir si on met un void ou on laisse un retour erreur
+    public int addPlayer(Player player, String teamDom){
+        switch (teamDom){
+            case "red":
+                this.red.addPlayer(player);
+                return 1;
+            case "blue":
+                this.blue.addPlayer(player);
+                return 1;
+            default:
+                return -1;
+        }
+    }
+
+    //todo voir si on met un void ou on laisse un retour erreur
+    public int setSpawn(Location location, String teamDom){
+        switch (teamDom){
+            case "red":
+                this.red.setSpawn(location);
+                return 1;
+            case "blue":
+                this.blue.setSpawn(location);
+                return 1;
+            default:
+                return -1;
+        }
+    }
+
+    public String foundTeam(Player player){
+        if(this.red.hasPlayer(player))
+            return "red";
+        if(this.blue.hasPlayer(player))
+            return "blue";
+        return "Player not have team";
     }
 }
