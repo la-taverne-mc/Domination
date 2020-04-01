@@ -2,6 +2,7 @@ package me.lataverne.domination.enums;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -21,7 +22,8 @@ public enum Items {
     FEET_ARCHER("feet_archer"),
     GLOWING_ARROW("glowing_arrow"),
     DAMAGE_ARROW("damage_arrow"),
-    TNT_ARROW("tnt_arrow");
+    TNT_ARROW("tnt_arrow"),
+    FIREWORK_ROCKET("firework_rocket");
 
     private final String name;
     private final ItemStack item;
@@ -71,6 +73,9 @@ public enum Items {
             case "teleport_wand":
                 item = createteleportWand();
                 break;
+            case "firework_rocket":
+                item = createFirework();
+                break;
 
             default:
                 item = new ItemStack(Material.AIR);
@@ -101,6 +106,8 @@ public enum Items {
     private ItemStack createteleportWand() {
         ItemStack item = new ItemStack(Material.BLAZE_ROD);
         ItemMeta itemMeta = item.getItemMeta();
+        ItemMeta = item.set
+        item.setItemMeta(itemMeta2)
 
         itemMeta.setDisplayName("§fBâton de transfert ");
 
@@ -110,7 +117,7 @@ public enum Items {
     private ItemStack createWingOutfielder() {
         ItemStack item = new ItemStack(Material.ELYTRA);
         ItemMeta itemMeta = item.getItemMeta();
-
+        itemMeta.addEnchant(Enchantment.DURABILITY, 20, true);
         itemMeta.setDisplayName("§fAiles de voltigeur");
 
         item.setItemMeta(itemMeta);
@@ -119,7 +126,7 @@ public enum Items {
     private ItemStack createSwordOutfielder() {
         ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
         ItemMeta itemMeta = item.getItemMeta();
-
+        itemMeta.addEnchant(Enchantment.DURABILITY, 20, true);
         itemMeta.setDisplayName("§fBras droit du voltigeur ");
 
         item.setItemMeta(itemMeta);
@@ -128,7 +135,7 @@ public enum Items {
     private ItemStack createShieldOutfielder() {
         ItemStack item = new ItemStack(Material.SHIELD);
         ItemMeta itemMeta = item.getItemMeta();
-
+        itemMeta.addEnchant(Enchantment.DURABILITY, 20, true);
         itemMeta.setDisplayName("§fBras gauche du Voltigeur");
 
         item.setItemMeta(itemMeta);
@@ -143,14 +150,15 @@ public enum Items {
     private ItemStack createArcArcher() {
         ItemStack item = new ItemStack(Material.BOW);
         ItemMeta itemMeta = item.getItemMeta();
-//todo enchantement inifinity
+        itemMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
         item.setItemMeta(itemMeta);
         return item;
     }
     private ItemStack createFeetArcher() {
         ItemStack item = new ItemStack(Material.LEATHER_BOOTS);
         ItemMeta itemMeta = item.getItemMeta();
-//todo enchantement rapidité
+        itemMeta.addEnchant(Enchantment.DIG_SPEED,2 , true);
+        itemMeta.addEnchant(Enchantment.DURABILITY, 20, true);
         item.setItemMeta(itemMeta);
         return item;
     }
@@ -178,6 +186,12 @@ public enum Items {
         ItemStack item = new ItemStack(Material.TIPPED_ARROW);
         ItemMeta itemMeta = item.getItemMeta();
 //todo tnt explosion
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+    private  ItemStack createFirework(){
+        ItemStack item = new ItemStack(Material.FIREWORK_ROCKET,64);
+        ItemMeta itemMeta = item.getItemMeta();
         item.setItemMeta(itemMeta);
         return item;
     }
