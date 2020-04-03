@@ -26,8 +26,10 @@ public class ItemsCommand implements TabExecutor {
                 sender.sendMessage("§cIl n'y a pas d'item nommé '" + args[0] + "'");
                 return false;
             }
+            
             if (player == null || !player.isOnline()) {
                 sender.sendMessage("§cLe joueur '" + args[1] + "' n'existe pas ou n'est pas connecté");
+                return false;
             }
 
             sender.sendMessage("§eLe joueur '" + args[1] + "' a reçu '" + args[0] + "'");
