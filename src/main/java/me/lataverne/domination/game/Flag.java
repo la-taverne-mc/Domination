@@ -1,6 +1,9 @@
 package me.lataverne.domination.game;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,6 +23,7 @@ import me.lataverne.domination.tasks.FlagTask;
 public class Flag {
     private Plugin plugin;
     private String name;
+    private Game game;
     private Location centerLocation;
     private double radius;
     private BukkitTask task;
@@ -27,17 +31,21 @@ public class Flag {
     private FlagOwnership ownership;
     private BossBar bossBar;
     private double bossBarRadius;
+    private Set<UUID> lastBossBarPlayersUuids;
 
-    public Flag(@NotNull String name, @NotNull Location centerLocation, @NotNull double radius, @NotNull double bossBarRadius) {
+    public Flag(@NotNull String name, @NotNull Game game, @NotNull Location centerLocation, @NotNull double radius, @NotNull double bossBarRadius) {
         this.plugin = Bukkit.getPluginManager().getPlugin("Domination");
         this.name = name;
+        this.game = game;
         this.centerLocation = centerLocation;
         this.radius = radius;
         this.ownership = FlagOwnership.NONE;
         this.bossBar = Bukkit.createBossBar(ChatColor.WHITE + this.name, BarColor.WHITE, BarStyle.SOLID);
         this.bossBarRadius = bossBarRadius;
+        this.lastBossBarPlayersUuids = new HashSet<UUID>();
     }
 
+    public Game getGame() { return game; }
     public Location getCenterLocation() { return centerLocation; }
     public double getRadius() { return radius; }
     public double getBossBarRadius() { return bossBarRadius; }
@@ -52,31 +60,36 @@ public class Flag {
         bossBar.removeAll();
     }
 
-    public void addPoints(@NotNull int points) {
-        capturePoints = Math.max(-100, Math.min(capturePoints + points, 100));
+    public void updatePoints(@NotNull int bluePlayers, @NotNull int redPlayers) {
+        if (bluePlayers > 0 && redPlayers > 0) {
+            ownership = FlagOwnership.DISPUTED;
+        } else if (bluePlayers > 0 && redPlayers <= 0) {
+            capturePoints = Math.min(capturePoints + bluePlayers, 100);
 
-        switch (capturePoints) {
-            case 100:
+            if (capturePoints > 0) {
                 ownership = FlagOwnership.BLUE;
-                break;
-            
-            case -100:
+            } else {
                 ownership = FlagOwnership.RED;
-                break;
-            
-            case 0:
-                ownership = FlagOwnership.NONE;
-                break;
-            
-            default:
-                ownership = FlagOwnership.DISPUTED;
-                break;
+            }
+        } else if (bluePlayers <= 0 && redPlayers > 0) {
+            capturePoints = Math.max(capturePoints - redPlayers, -100);
+
+            if (capturePoints > 0) {
+                ownership = FlagOwnership.BLUE;
+            } else {
+                ownership = FlagOwnership.RED;
+            }
         }
 
         updateBossBar();
     }
 
     private void updateBossBar() {
+        double progress = Math.abs(capturePoints) / 100d;
+        bossBar.setProgress(progress);
+
+        ownership = capturePoints == 0 ? FlagOwnership.NONE : ownership;
+
         switch (ownership) {
             case BLUE:
                 bossBar.setTitle(ChatColor.BLUE + name);
@@ -102,9 +115,20 @@ public class Flag {
     }
 
     public void setBossBarPlayers(List<Player> bossBarPlayers) {
-        bossBar.removeAll();
+        Set<UUID> bossBarPlayersUuids = new HashSet<UUID>();
+
         for (Player player : bossBarPlayers) {
-            bossBar.addPlayer(player);
+            if (!lastBossBarPlayersUuids.contains(player.getUniqueId())) bossBar.addPlayer(player);
+            bossBarPlayersUuids.add(player.getUniqueId());
         }
+
+        lastBossBarPlayersUuids.removeAll(new HashSet<UUID>(bossBarPlayersUuids));
+
+        for (UUID playerUuid : lastBossBarPlayersUuids) {
+            Player player = Bukkit.getPlayer(playerUuid);
+            if (player != null) bossBar.removePlayer(player);
+        }
+
+        lastBossBarPlayersUuids = bossBarPlayersUuids;
     }
 }

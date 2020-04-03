@@ -23,7 +23,7 @@ public class Games {
 
     public List<Game> getGames() { return games; }
 
-    public List<String> getGamesName() {
+    public List<String> getGamesNames() {
         List<String> list = Lists.newArrayList();
 
         for (Game game : games) {
@@ -39,5 +39,11 @@ public class Games {
         }
 
         return null;
+    }
+
+    public void stopAll() {
+        for (Game game : games) {
+            game.stop();
+        }
     }
 }
