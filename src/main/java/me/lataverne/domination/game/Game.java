@@ -120,8 +120,12 @@ public class Game {
         }
     }
 
-    public Location getTeamSpawn(@NotNull Squads squad) {
+    public @Nullable Location getTeamSpawn(@NotNull Squads squad) {
         if (squad == Squads.BLUE) return blue.getSpawn();
         else return red.getSpawn();
+    }
+
+    public boolean isValid() {
+        return !flags.isEmpty() && flags.size() % 2 == 1 && getTeamSpawn(Squads.BLUE) != null && getTeamSpawn(Squads.RED) != null;
     }
 }

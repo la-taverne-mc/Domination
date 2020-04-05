@@ -94,6 +94,11 @@ public class DominationCommand implements TabExecutor {
                     if (args.length < 4) durationInSeconds = 600;
                     else durationInSeconds = Integer.parseInt(args[3]);
 
+                    if (!game.isValid()) {
+                        sender.sendMessage("§cLa game " + game.getName() + " n'est pas valide, il lui faut un nombre de flags impaire et un point de spawn pour les team Bleu et Rouge");
+                        return false;
+                    }
+
                     if (!game.start(durationInSeconds)) {
                         sender.sendMessage("§cLa game '" + game.getName() + "' est déjà en cours");
                         return false;
