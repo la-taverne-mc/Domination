@@ -211,7 +211,6 @@ public class DominationCommand implements TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("domination")) {
-            List<String> emptyList = Lists.newArrayList();
             switch (args.length) {
                 case 1:
                     return getStringsStartingWith(args[0], Lists.newArrayList("createGame", "listGames", "startGame", "stopGame", "createFlag", "setTeam"));
@@ -224,7 +223,7 @@ public class DominationCommand implements TabExecutor {
                         
                         case "creategame":
                         case "createflag":
-                            return emptyList;
+                            return Lists.newArrayList();
                         
                         default:
                             break;

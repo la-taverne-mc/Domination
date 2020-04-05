@@ -80,10 +80,10 @@ public class Game {
         return true;
     }
 
-    public void addPlayer(@NotNull Player player, @NotNull Squads team) {
+    public void addPlayer(@NotNull Player player, @NotNull Squads squad) {
         removePlayer(player);
 
-        if (team == Squads.BLUE) {
+        if (squad == Squads.BLUE) {
             blue.addPlayer(player);
         } else {
             red.addPlayer(player);
@@ -112,11 +112,16 @@ public class Game {
         }
     }
 
-    public void setTeamSpawn(@NotNull Location spawn, @NotNull Squads team) {
-        if (team == Squads.BLUE) {
+    public void setTeamSpawn(@NotNull Location spawn, @NotNull Squads squad) {
+        if (squad == Squads.BLUE) {
             blue.setSpawn(spawn);
         } else {
             red.setSpawn(spawn);
         }
+    }
+
+    public Location getTeamSpawn(@NotNull Squads squad) {
+        if (squad == Squads.BLUE) return blue.getSpawn();
+        else return red.getSpawn();
     }
 }

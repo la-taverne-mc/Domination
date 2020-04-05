@@ -51,7 +51,7 @@ public class Squad {
         team.removeEntry(player.getName());
     }
     
-    public @Nullable Location getLocation() { return spawn; }
+    public @Nullable Location getSpawn() { return spawn; }
     public void setSpawn(@NotNull Location spawn) { this.spawn = spawn; }
 
     public int getScore() { return this.score; }
