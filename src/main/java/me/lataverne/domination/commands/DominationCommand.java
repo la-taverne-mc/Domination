@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import me.lataverne.domination.enums.Squads;
 import me.lataverne.domination.game.Game;
 import me.lataverne.domination.game.Games;
+import me.lataverne.domination.utils.LocationUtils;
 import me.lataverne.domination.utils.NumericUtils;
 
 public class DominationCommand implements TabExecutor {
@@ -48,6 +49,13 @@ public class DominationCommand implements TabExecutor {
                     if (args.length != 1) {
                         sender.sendMessage("§cUsage : /domination listGames");
                         return false;
+                    }
+
+                    List<String> gameList = games.getGamesNames();
+
+                    if (gameList.isEmpty()) {
+                        sender.sendMessage("§cIl n'y a pas de game actuellement existante");
+                        return true;
                     }
 
                     sender.sendMessage("§eVoici une liste de toutes les games ayant été créée :");
@@ -114,7 +122,7 @@ public class DominationCommand implements TabExecutor {
 
                 case "createflag":
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage("§cSeul les joueurs peuvent utiliser cette commande");
+                        sender.sendMessage("§cSeul les joueurs peuvent utiliser cette sous-commande");
                         return false;
                     }
 
@@ -149,7 +157,7 @@ public class DominationCommand implements TabExecutor {
                     if (args.length < 5) bossBarRadius = 15;
                     else bossBarRadius = Double.parseDouble(args[4]);
 
-                    game.createFlag(args[1], ((Player) sender).getLocation(), flagRadius, bossBarRadius);
+                    game.createFlag(args[1], LocationUtils.getApproximativeLocation(((Player) sender).getLocation()), flagRadius, bossBarRadius);
                     
                     sender.sendMessage("§eLe flag '" + args[1] + "' a bien été ajouté à la game '" + game.getName() + "'");
                     return true;
@@ -193,7 +201,43 @@ public class DominationCommand implements TabExecutor {
                             break;
 
                         default:
-                            sender.sendMessage("§cLa team peut être soit §nblue§n, soit §nred§n, soit §nrandom§n");
+                            sender.sendMessage("§cLa team peut être soit §nblue§r§c, soit §nred§r§c, soit §nrandom");
+                            return false;
+                    }
+
+                    return true;
+
+                case "setspawn":
+                    if (!(sender instanceof Player)) {
+                        sender.sendMessage("§cSeul les joueurs peuvent utiliser cette sous-commande");
+                        return false;
+                    }
+
+                    if (args.length != 3) {
+                        sender.sendMessage("§cUsage : /domination setSpawn <game> <team>");
+                        return false;
+                    }
+
+                    game = games.getGameByName(args[1]);
+
+                    if (game == null) {
+                        sender.sendMessage("§cIl n'y a pas de game nommée '" + args[1] + "'");
+                        return false;
+                    }
+
+                    switch (args[2].toLowerCase()) {
+                        case "blue":
+                            game.setTeamSpawn(LocationUtils.getApproximativeLocation(((Player) sender).getLocation()), Squads.BLUE);
+                            sender.sendMessage("§eLe spawn de la team §9Bleu§e a été défini");
+                            break;
+
+                        case "red":
+                            game.setTeamSpawn(LocationUtils.getApproximativeLocation(((Player) sender).getLocation()), Squads.RED);
+                            sender.sendMessage("§eLe spawn de la team §cRouge§e a été défini");
+                            break;
+
+                        default:
+                            sender.sendMessage("§cLa team peut être soit §nblue§r§c, soit §nred");
                             return false;
                     }
 
@@ -213,12 +257,13 @@ public class DominationCommand implements TabExecutor {
         if (command.getName().equalsIgnoreCase("domination")) {
             switch (args.length) {
                 case 1:
-                    return getStringsStartingWith(args[0], Lists.newArrayList("createGame", "listGames", "startGame", "stopGame", "createFlag", "setTeam"));
+                    return getStringsStartingWith(args[0], Lists.newArrayList("createGame", "listGames", "startGame", "stopGame", "createFlag", "setTeam", "setSpawn"));
 
                 case 2:
                     switch (args[0].toLowerCase()) {
                         case "startgame":
                         case "stopgame":
+                        case "setspawn":
                             return getStringsStartingWith(args[1], games.getGamesNames());
                         
                         case "creategame":
@@ -239,6 +284,9 @@ public class DominationCommand implements TabExecutor {
                         
                         case "startgame":
                             return getStringsStartingWith(args[2], Lists.newArrayList("random", "manual", "playerChoice"));
+                        
+                        case "setspawn":
+                            return getStringsStartingWith(args[2], Lists.newArrayList("blue", "red"));
                         
                         default:
                             break;
