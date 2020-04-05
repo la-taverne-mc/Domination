@@ -1,9 +1,13 @@
 package me.lataverne.domination.utils;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 public class NumericUtils {
-    public static boolean isDouble(String str) {
+    public static boolean isDouble(@NotNull String str) {
         final String digits     = "(\\p{Digit}+)";
         final String hexDigits  = "(\\p{XDigit}+)";
         // an exponent is 'e' or 'E' followed by an optionally 
@@ -46,7 +50,7 @@ public class NumericUtils {
         return Pattern.matches(fpRegex, str);
     }
 
-    public static boolean isInteger(String str) {
+    public static boolean isInteger(@NotNull String str) {
         final String digits     = "(\\p{Digit}+)";
         final String iRegex     = 
             ("[\\x00-\\x20]*" +
@@ -54,5 +58,39 @@ public class NumericUtils {
             "[\\x00-\\x20]*");
 
         return Pattern.matches(iRegex, str);
+    }
+
+    public static @Nullable Float closest(@NotNull ArrayList<Float> numbers, @NotNull float number) {
+        if (numbers.isEmpty()) return null;
+
+        float distance = Math.abs(numbers.get(0) - number);
+        int idx = 0;
+
+        for (int i = 0; i < numbers.size(); i++) {
+            float idistance = Math.abs(numbers.get(i) - number);
+            if (idistance < distance) {
+                idx = i;
+                distance = idistance;
+            }
+        }
+
+        return numbers.get(idx);
+    }
+
+    public static @Nullable Double closest(@NotNull ArrayList<Double> numbers, @NotNull double number) {
+        if (numbers.isEmpty()) return null;
+
+        double distance = Math.abs(numbers.get(0) - number);
+        int idx = 0;
+
+        for (int i = 0; i < numbers.size(); i++) {
+            double idistance = Math.abs(numbers.get(i) - number);
+            if (idistance < distance) {
+                idx = i;
+                distance = idistance;
+            }
+        }
+
+        return numbers.get(idx);
     }
 }
