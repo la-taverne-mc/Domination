@@ -172,21 +172,21 @@ public class DominationCommand implements TabExecutor {
 
                 case "setteam":
                     if (args.length != 4) {
-                        sender.sendMessage("§cUsage : /domination setTeam <player> <game> <team>");
+                        sender.sendMessage("§cUsage : /domination setTeam <game> <player> <team>");
                         return false;
                     }
 
-                    game = games.getGameByName(args[2]);
+                    game = games.getGameByName(args[1]);
 
                     if (game == null) {
-                        sender.sendMessage("§cIl n'y a pas de game nommée '" + args[2] + "'");
+                        sender.sendMessage("§cIl n'y a pas de game nommée '" + args[1] + "'");
                         return false;
                     }
             
-                    Player player = Bukkit.getPlayer(args[1]);
+                    Player player = Bukkit.getPlayer(args[2]);
                     
                     if (player == null || !player.isOnline()) {
-                        sender.sendMessage("§cLe joueur '" + args[1] + "' n'existe pas ou n'est pas connecté");
+                        sender.sendMessage("§cLe joueur '" + args[2] + "' n'existe pas ou n'est pas connecté");
                         return false;
                     }
 
@@ -270,6 +270,7 @@ public class DominationCommand implements TabExecutor {
                 case 2:
                     switch (args[0].toLowerCase()) {
                         case "startgame":
+                        case "setteam":
                         case "setspawn":
                             return getStringsStartingWith(args[1], games.getGamesNames());
                         
@@ -289,7 +290,6 @@ public class DominationCommand implements TabExecutor {
                 case 3:
                     switch (args[0].toLowerCase()) {
                         case "createflag":
-                        case "setteam":
                             return getStringsStartingWith(args[2], games.getGamesNames());
                         
                         case "startgame":
