@@ -120,7 +120,10 @@ public class DominationCommand implements TabExecutor {
                         return false;
                     }
 
-                    game.stop();
+                    if (!game.stop()) {
+                        sender.sendMessage("§cLa game '" + game.getName() + "' n'est actuellement pas en cours");
+                        return false;
+                    }
 
                     sender.sendMessage("§eLa game '" + game.getName() + "' a bien été arrêtée");
                     return true;
@@ -267,7 +270,6 @@ public class DominationCommand implements TabExecutor {
                 case 2:
                     switch (args[0].toLowerCase()) {
                         case "startgame":
-                        case "stopgame":
                         case "setspawn":
                             return getStringsStartingWith(args[1], games.getGamesNames());
                         
@@ -275,6 +277,9 @@ public class DominationCommand implements TabExecutor {
                         case "createflag":
                             return Lists.newArrayList();
                         
+                        case "stopgame":
+                            return getStringsStartingWith(args[1], games.getRunningGamesNames());
+
                         default:
                             break;
                     }

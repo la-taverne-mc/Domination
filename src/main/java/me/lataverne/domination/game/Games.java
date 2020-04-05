@@ -34,6 +34,16 @@ public class Games {
         return list;
     }
 
+    public List<String> getRunningGamesNames() {
+        List<String> list = Lists.newArrayList();
+
+        for (Game game : games) {
+            if (game.isRunning()) list.add(game.getName());
+        }
+
+        return list;
+    }
+
     public @Nullable Game getGameByName(@NotNull String name) {
         for (Game game : games) {
             if (game.getName().equalsIgnoreCase(name)) return game;
