@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,5 +46,13 @@ public class Games {
         for (Game game : games) {
             game.stop();
         }
+    }
+
+    public @Nullable Game getPlayerGame(@NotNull Player player) {
+        for (Game game : games) {
+            if (game.hasPlayer(player)) return game;
+        }
+
+        return null;
     }
 }
