@@ -19,19 +19,25 @@ public class PreventTeamModification implements Listener {
     
     @EventHandler
     public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
-        event.getPlayer().sendMessage("§cTu ne peux pas interagir avec cette team");
-        event.setCancelled(Pattern.matches(regex, event.getMessage()));
+        if (Pattern.matches(regex, event.getMessage())) {
+            event.getPlayer().sendMessage("§cTu ne peux pas interagir avec cette team");
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onServerCommand(ServerCommandEvent event) {
-        event.getSender().sendMessage("§cTu ne peux pas interagir avec cette team");
-        event.setCancelled(Pattern.matches(regex, event.getCommand()));
+        if (Pattern.matches(regex, event.getCommand())) {
+            event.getSender().sendMessage("§cTu ne peux pas interagir avec cette team");
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void onRemoteServerCommand(RemoteServerCommandEvent event) {
-        event.getSender().sendMessage("§cTu ne peux pas interagir avec cette team");
-        event.setCancelled(Pattern.matches(regex, event.getCommand()));
+        if (Pattern.matches(regex, event.getCommand())) {
+            event.getSender().sendMessage("§cTu ne peux pas interagir avec cette team");
+            event.setCancelled(true);
+        }
     }
 }
