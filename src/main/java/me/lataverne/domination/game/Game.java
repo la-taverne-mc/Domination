@@ -1,8 +1,7 @@
 package me.lataverne.domination.game;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import com.google.common.collect.Lists;
 
@@ -25,7 +24,7 @@ public class Game {
     private List<Flag> flags;
     private BukkitTask task;
     private boolean isRunning;
-    private Map<UUID, Archetypes> playersArchetypes;
+    private HashMap<Player, Archetypes> playersArchetypes;
     private Squad red;
     private Squad blue;
 
@@ -40,11 +39,11 @@ public class Game {
     public String getName() { return name; }
     public boolean isRunning() { return isRunning; }
 
-    public @Nullable Archetypes getPlayerArchetype(@NotNull UUID playerUuid) { return playersArchetypes.get(playerUuid); }
+    public @Nullable Archetypes getPlayerArchetype(@NotNull Player player) { return playersArchetypes.get(player); }
     
-    public void setPlayerSpecialty(@NotNull UUID playerUuid, @NotNull Archetypes archetype) {
-        if (playersArchetypes.containsKey(playerUuid)) playersArchetypes.replace(playerUuid, archetype);
-        else playersArchetypes.put(playerUuid, archetype);
+    public void setPlayerSpecialty(@NotNull Player player, @NotNull Archetypes archetype) {
+        if (playersArchetypes.containsKey(player)) playersArchetypes.replace(player, archetype);
+        else playersArchetypes.put(player, archetype);
     }
 
     public void createFlag(@NotNull String flagName, @NotNull Location flagLocation, @NotNull double flagRadius, @NotNull double bossBarRadius) {

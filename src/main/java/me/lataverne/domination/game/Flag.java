@@ -3,7 +3,6 @@ package me.lataverne.domination.game;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,7 +30,7 @@ public class Flag {
     private FlagOwnership ownership;
     private BossBar bossBar;
     private double bossBarRadius;
-    private Set<UUID> lastBossBarPlayersUuids;
+    private Set<Player> lastBossBarPlayers;
 
     public Flag(@NotNull String name, @NotNull Game game, @NotNull Location centerLocation, @NotNull double radius, @NotNull double bossBarRadius) {
         this.plugin = Bukkit.getPluginManager().getPlugin("Domination");
@@ -42,7 +41,7 @@ public class Flag {
         this.ownership = FlagOwnership.NONE;
         this.bossBar = Bukkit.createBossBar(ChatColor.WHITE + this.name, BarColor.WHITE, BarStyle.SOLID);
         this.bossBarRadius = bossBarRadius;
-        this.lastBossBarPlayersUuids = new HashSet<UUID>();
+        this.lastBossBarPlayers = new HashSet<Player>();
     }
 
     public Game getGame() { return game; }
@@ -115,20 +114,17 @@ public class Flag {
     }
 
     public void setBossBarPlayers(List<Player> bossBarPlayers) {
-        Set<UUID> bossBarPlayersUuids = new HashSet<UUID>();
-
         for (Player player : bossBarPlayers) {
-            if (!lastBossBarPlayersUuids.contains(player.getUniqueId())) bossBar.addPlayer(player);
-            bossBarPlayersUuids.add(player.getUniqueId());
+            if (!lastBossBarPlayers.contains(player)) bossBar.addPlayer(player);
+            bossBarPlayers.add(player);
         }
 
-        lastBossBarPlayersUuids.removeAll(new HashSet<UUID>(bossBarPlayersUuids));
+        lastBossBarPlayers.removeAll(new HashSet<Player>(bossBarPlayers));
 
-        for (UUID playerUuid : lastBossBarPlayersUuids) {
-            Player player = Bukkit.getPlayer(playerUuid);
+        for (Player player : bossBarPlayers) {
             if (player != null) bossBar.removePlayer(player);
         }
 
-        lastBossBarPlayersUuids = bossBarPlayersUuids;
+        lastBossBarPlayers = new HashSet<Player>(bossBarPlayers);
     }
 }
