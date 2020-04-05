@@ -85,9 +85,18 @@ public class Main extends JavaPlugin {
         blueTeam = scoreboard.getTeam(blueTeamName);
         redTeam = scoreboard.getTeam(redTeamName);
 
+        blueTeam.setDisplayName("Bleus");
+        redTeam.setDisplayName("Rouges");
+
         blueTeam.setColor(ChatColor.BLUE);
         blueTeam.setPrefix(ChatColor.BLUE.toString());
         redTeam.setColor(ChatColor.RED);
         redTeam.setPrefix(ChatColor.RED.toString());
+
+        blueTeam.setCanSeeFriendlyInvisibles(true);
+        redTeam.setCanSeeFriendlyInvisibles(true);
+
+        blueTeam.setAllowFriendlyFire(false);
+        redTeam.setAllowFriendlyFire(false);
     }
 }
