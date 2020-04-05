@@ -30,6 +30,8 @@ public class Main extends JavaPlugin {
     public static Team blueTeam;
     public static Team redTeam;
 
+    public static Scoreboard mainScoreboard;
+
     @Override
     public void onEnable() {
         loadGames();
@@ -74,16 +76,16 @@ public class Main extends JavaPlugin {
 
     private void registerTeams() {
         ScoreboardManager scoreboardManager = getServer().getScoreboardManager();
-        Scoreboard scoreboard = scoreboardManager.getMainScoreboard();
+        mainScoreboard = scoreboardManager.getMainScoreboard();
 
         blueTeamName = RandomStringUtils.randomAlphanumeric(16);
         redTeamName = RandomStringUtils.randomAlphanumeric(16);
 
-        scoreboard.registerNewTeam(blueTeamName);
-        scoreboard.registerNewTeam(redTeamName);
+        mainScoreboard.registerNewTeam(blueTeamName);
+        mainScoreboard.registerNewTeam(redTeamName);
 
-        blueTeam = scoreboard.getTeam(blueTeamName);
-        redTeam = scoreboard.getTeam(redTeamName);
+        blueTeam = mainScoreboard.getTeam(blueTeamName);
+        redTeam = mainScoreboard.getTeam(redTeamName);
 
         blueTeam.setDisplayName("Bleus");
         redTeam.setDisplayName("Rouges");

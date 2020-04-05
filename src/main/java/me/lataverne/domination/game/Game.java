@@ -53,6 +53,9 @@ public class Game {
     public boolean start(@NotNull int gameDuration) {
         if (isRunning) return false;
 
+        blue.setPlayersTeam();
+        red.setPlayersTeam();
+
         for (Flag flag : flags) {
             flag.activate();
         }
