@@ -1,11 +1,13 @@
 package me.lataverne.domination;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -18,6 +20,7 @@ import me.lataverne.domination.game.Games;
 import me.lataverne.domination.listeners.DeathListener;
 import me.lataverne.domination.listeners.FireballWandListener;
 import me.lataverne.domination.listeners.HealingWandListener;
+import me.lataverne.domination.listeners.KillAssistListener;
 import me.lataverne.domination.listeners.PreventBlockPlacing;
 import me.lataverne.domination.listeners.PreventTeamModification;
 
@@ -31,6 +34,8 @@ public class Main extends JavaPlugin {
     public static Team redTeam;
 
     public static Scoreboard mainScoreboard;
+
+    public static HashMap<Player, Player> killAssists = new HashMap<Player, Player>(); // HashMap<Damaged, Damager>
 
     @Override
     public void onEnable() {
@@ -68,7 +73,9 @@ public class Main extends JavaPlugin {
 
         pluginManager.registerEvents(new PreventTeamModification(Lists.newArrayList(blueTeamName, redTeamName)), this);
         pluginManager.registerEvents(new PreventBlockPlacing(), this);
+
         pluginManager.registerEvents(new DeathListener(), this);
+        pluginManager.registerEvents(new KillAssistListener(), this);
 
         pluginManager.registerEvents(new HealingWandListener(), this);
         pluginManager.registerEvents(new FireballWandListener(), this);
