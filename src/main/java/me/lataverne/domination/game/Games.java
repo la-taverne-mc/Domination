@@ -65,4 +65,16 @@ public class Games {
 
         return null;
     }
+
+    public @Nullable List<SerializedGame> serialize() {
+        if (games.size() <= 0) return null;
+
+        List<SerializedGame> serializedGames = Lists.newArrayList();
+
+        for (Game game : games) {
+            serializedGames.add(game.serialize());
+        }
+
+        return serializedGames;
+    }
 }

@@ -130,4 +130,16 @@ public class Game {
     public boolean isValid() {
         return !flags.isEmpty() && flags.size() % 2 == 1 && getTeamSpawn(Squads.BLUE) != null && getTeamSpawn(Squads.RED) != null;
     }
+
+    public SerializedGame serialize() {
+        if (flags.size() <= 0) return new SerializedGame(this, null);
+
+        List<SerializedFlag> serializedFlags = Lists.newArrayList();
+
+        for (Flag flag : flags) {
+            serializedFlags.add(flag.serialize());
+        }
+
+        return new SerializedGame(this, serializedFlags);
+    }
 }

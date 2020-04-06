@@ -44,6 +44,7 @@ public class Flag {
         this.lastBossBarPlayers = new HashSet<Player>();
     }
 
+    public String getName() { return name; }
     public Game getGame() { return game; }
     public Location getCenterLocation() { return centerLocation; }
     public double getRadius() { return radius; }
@@ -126,5 +127,9 @@ public class Flag {
         }
 
         lastBossBarPlayers = new HashSet<Player>(bossBarPlayers);
+    }
+
+    public SerializedFlag serialize() {
+        return new SerializedFlag(this);
     }
 }
