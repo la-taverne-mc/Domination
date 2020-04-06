@@ -1,12 +1,14 @@
 package me.lataverne.domination;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 import com.google.common.collect.Lists;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,14 +19,20 @@ import org.bukkit.scoreboard.Team;
 import me.lataverne.domination.commands.DominationCommand;
 import me.lataverne.domination.commands.ItemsCommand;
 import me.lataverne.domination.game.Games;
+import me.lataverne.domination.game.SerializedFlag;
+import me.lataverne.domination.game.SerializedGame;
 import me.lataverne.domination.listeners.DeathListener;
 import me.lataverne.domination.listeners.FireballWandListener;
 import me.lataverne.domination.listeners.HealingWandListener;
 import me.lataverne.domination.listeners.KillAssistListener;
 import me.lataverne.domination.listeners.PreventBlockPlacing;
 import me.lataverne.domination.listeners.PreventTeamModification;
+import me.lataverne.domination.utils.FileManager;
 
 public class Main extends JavaPlugin {
+    private FileManager saveFile;
+    private FileConfiguration saveContent;
+
     private Games games;
 
     private String blueTeamName;
@@ -56,11 +64,39 @@ public class Main extends JavaPlugin {
         blueTeam.unregister();
         redTeam.unregister();
 
+        saveGames();
+
         getLogger().log(Level.INFO, "Domination has been successfully disabled");
     }
 
     private void loadGames() {
+        saveFile = new FileManager(this, "save.yml");
+        saveContent = saveFile.getContent();
+        
         games = new Games();
+    }
+
+    private void saveGames() {
+        saveFile.delete();
+
+        List<SerializedGame> serializedGames = games.serialize();
+
+        if (serializedGames != null) {
+            for (SerializedGame serializedGame : serializedGames) {
+                if (serializedGame.blueSpawn != null) saveContent.set(serializedGame.name + ".blueSpawn", serializedGame.blueSpawn);
+                if (serializedGame.redSpawn != null) saveContent.set(serializedGame.name + ".redSpawn", serializedGame.redSpawn);
+
+                if (serializedGame.flags != null) {
+                    for (SerializedFlag serializedFlag : serializedGame.flags) {
+                        saveContent.set(serializedGame.name + ".flags." + serializedFlag.name + ".centerLocation", serializedFlag.centerLocation);
+                        saveContent.set(serializedGame.name + ".flags." + serializedFlag.name + ".radius", serializedFlag.radius);
+                        saveContent.set(serializedGame.name + ".flags." + serializedFlag.name + ".bossBarRadius", serializedFlag.bossBarRadius);
+                    }
+                }
+            }
+        }
+
+        saveFile.save();
     }
 
     private void registerCommands() {
