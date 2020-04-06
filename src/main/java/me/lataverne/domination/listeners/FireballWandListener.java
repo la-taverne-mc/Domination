@@ -23,7 +23,7 @@ public class FireballWandListener implements Listener {
         if(event.getPlayer().hasCooldown(item.getType())) return;
 
         if (Items.FIREBALL_WAND.compareTo(item)) {
-            event.getPlayer().setCooldown(item.getType(),20*3);
+            event.getPlayer().setCooldown(item.getType(),20*2);
             event.getPlayer().launchProjectile(SmallFireball.class);
         }
     }

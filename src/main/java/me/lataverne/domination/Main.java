@@ -2,16 +2,13 @@ package me.lataverne.domination;
 
 import java.util.logging.Level;
 
+import me.lataverne.domination.listeners.*;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.lataverne.domination.commands.DominationCommand;
 import me.lataverne.domination.commands.ItemsCommand;
 import me.lataverne.domination.game.Games;
-import me.lataverne.domination.listeners.DeathListener;
-import me.lataverne.domination.listeners.FireballWandListener;
-import me.lataverne.domination.listeners.HealingWandListener;
-import me.lataverne.domination.listeners.PreventBlockPlacing;
 
 public class Main extends JavaPlugin {
     private Games games;
@@ -45,7 +42,9 @@ public class Main extends JavaPlugin {
 
         pluginManager.registerEvents(new PreventBlockPlacing(), this);
         pluginManager.registerEvents(new DeathListener(), this);
-
+        pluginManager.registerEvents(new OnEntityShootCrossbowEvent(), this);
+        pluginManager.registerEvents(new OnEntityLunchArrowEvent(), this);
+        pluginManager.registerEvents(new DragonEffectListener(), this);
         pluginManager.registerEvents(new HealingWandListener(), this);
         pluginManager.registerEvents(new FireballWandListener(), this);
     }

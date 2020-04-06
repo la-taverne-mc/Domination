@@ -106,8 +106,6 @@ public enum Items {
     private ItemStack createteleportWand() {
         ItemStack item = new ItemStack(Material.BLAZE_ROD);
         ItemMeta itemMeta = item.getItemMeta();
-        ItemMeta = item.set
-        item.setItemMeta(itemMeta2)
 
         itemMeta.setDisplayName("§fBâton de transfert ");
 
@@ -185,7 +183,6 @@ public enum Items {
     private ItemStack createTntArrow() {
         ItemStack item = new ItemStack(Material.TIPPED_ARROW);
         ItemMeta itemMeta = item.getItemMeta();
-//todo tnt explosion
         item.setItemMeta(itemMeta);
         return item;
     }
