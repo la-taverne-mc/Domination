@@ -11,7 +11,8 @@ public class LocationUtils {
     public static Location getApproximativeLocation(@NotNull Location location) {
         double x = NumericUtils.closest(Lists.newArrayList(location.getBlockX() - 0.5d, location.getBlockX() + 0.5d), location.getX());
         double z = NumericUtils.closest(Lists.newArrayList(location.getBlockZ() - 0.5d, location.getBlockZ() + 0.5d), location.getZ());
-        float yaw = NumericUtils.closest(Lists.newArrayList(-180.f, -90.f, 0.f, 90.f, 180.f), location.getYaw());
+        float yaw = NumericUtils.closest(Lists.newArrayList(0.f, 90.f, 180.f, 270.f, 360.f), location.getYaw());
+        yaw = yaw == 360.f ? 0.f : yaw;
         float pitch = NumericUtils.closest(Lists.newArrayList(-90.f, -45.f, 0.f, 45.f, 90.f), location.getPitch());
         
         return new Location(location.getWorld(), x, location.getBlockY(), z, yaw, pitch);
