@@ -21,11 +21,11 @@ import me.lataverne.domination.commands.ItemsCommand;
 import me.lataverne.domination.game.Games;
 import me.lataverne.domination.game.SerializedFlag;
 import me.lataverne.domination.game.SerializedGame;
-import me.lataverne.domination.listeners.DeathListener;
 import me.lataverne.domination.listeners.FireballWandListener;
 import me.lataverne.domination.listeners.HealingWandListener;
 import me.lataverne.domination.listeners.KillAssistListener;
 import me.lataverne.domination.listeners.PreventBlockPlacing;
+import me.lataverne.domination.listeners.PreventItemDrop;
 import me.lataverne.domination.listeners.PreventTeamModification;
 import me.lataverne.domination.utils.FileManager;
 
@@ -33,7 +33,7 @@ public class Main extends JavaPlugin {
     private FileManager saveFile;
     private FileConfiguration saveContent;
 
-    private Games games;
+    public static Games games;
 
     private String blueTeamName;
     private String redTeamName;
@@ -127,8 +127,8 @@ public class Main extends JavaPlugin {
 
         pluginManager.registerEvents(new PreventTeamModification(Lists.newArrayList(blueTeamName, redTeamName)), this);
         pluginManager.registerEvents(new PreventBlockPlacing(), this);
+        pluginManager.registerEvents(new PreventItemDrop(), this);
 
-        pluginManager.registerEvents(new DeathListener(), this);
         pluginManager.registerEvents(new KillAssistListener(), this);
 
         pluginManager.registerEvents(new HealingWandListener(), this);
