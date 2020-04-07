@@ -15,6 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.Team.Option;
+import org.bukkit.scoreboard.Team.OptionStatus;
 
 import me.lataverne.domination.commands.DominationCommand;
 import me.lataverne.domination.commands.ItemsCommand;
@@ -161,5 +163,8 @@ public class Main extends JavaPlugin {
 
         blueTeam.setAllowFriendlyFire(false);
         redTeam.setAllowFriendlyFire(false);
+
+        blueTeam.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
+        redTeam.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OWN_TEAM);
     }
 }
