@@ -13,10 +13,17 @@ public class SerializedGame {
     public final String redSpawn;
     public final List<SerializedFlag> flags;
 
-    public SerializedGame(@NotNull Game game, List<SerializedFlag> serializedFlags) {
+    public SerializedGame(@NotNull Game game, List<SerializedFlag> flags) {
         this.name = game.getName();
-        this.blueSpawn = game.getTeamSpawn(Squads.BLUE) == null ? null : LocationUtils.LocationToString(game.getTeamSpawn(Squads.BLUE));
-        this.redSpawn = game.getTeamSpawn(Squads.RED) == null ? null : LocationUtils.LocationToString(game.getTeamSpawn(Squads.RED));
-        this.flags = serializedFlags;
+        this.blueSpawn = LocationUtils.LocationToString(game.getTeamSpawn(Squads.BLUE));
+        this.redSpawn = LocationUtils.LocationToString(game.getTeamSpawn(Squads.RED));
+        this.flags = flags;
+    }
+
+    public SerializedGame(@NotNull String name, String blueSpawn, String redSpawn, List<SerializedFlag> flags) {
+        this.name = name;
+        this.blueSpawn = blueSpawn;
+        this.redSpawn = redSpawn;
+        this.flags = flags;
     }
 }

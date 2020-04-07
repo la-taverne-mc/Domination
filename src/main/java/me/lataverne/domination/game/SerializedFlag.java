@@ -16,4 +16,11 @@ public class SerializedFlag {
         this.radius = String.valueOf(flag.getRadius());
         this.bossBarRadius = String.valueOf(flag.getBossBarRadius());
     }
+
+    public SerializedFlag(@NotNull String name, @NotNull String centerLocation, @NotNull String radius, @NotNull String bossBarRadius) {
+        this.name = name;
+        this.centerLocation = centerLocation;
+        this.radius = radius;
+        this.bossBarRadius = bossBarRadius;
+    }
 }

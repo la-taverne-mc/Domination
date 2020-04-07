@@ -17,6 +17,8 @@ import me.lataverne.domination.Main;
 import me.lataverne.domination.enums.Archetypes;
 import me.lataverne.domination.enums.Squads;
 import me.lataverne.domination.tasks.GameTask;
+import me.lataverne.domination.utils.LocationUtils;
+import me.lataverne.domination.utils.NumericUtils;
 
 public class Game {
     private Plugin plugin;
@@ -34,6 +36,28 @@ public class Game {
         this.flags = Lists.newArrayList();
         this.blue = new Squad("Bleus", Main.blueTeam);
         this.red = new Squad("Rouges", Main.redTeam);
+    }
+
+    public Game(@NotNull SerializedGame serializedGame) {
+        this.plugin = Bukkit.getPluginManager().getPlugin("Domination");
+        this.name = serializedGame.name;
+        this.flags = Lists.newArrayList();
+        this.blue = new Squad("Bleus", Main.blueTeam);
+        this.red = new Squad("Rouges", Main.redTeam);
+        
+        Location blueSpawn = LocationUtils.StringToLocation(serializedGame.blueSpawn);
+        Location redSpawn = LocationUtils.StringToLocation(serializedGame.redSpawn);
+        if (blueSpawn != null) this.blue.setSpawn(blueSpawn);
+        if (redSpawn != null) this.red.setSpawn(redSpawn);
+
+        for (SerializedFlag serializedFlag : serializedGame.flags) {
+            if (serializedFlag.name != null && serializedFlag.centerLocation != null && serializedFlag.radius != null && serializedFlag.bossBarRadius != null) {
+                Location centerLocation = LocationUtils.StringToLocation(serializedFlag.centerLocation);
+                if (centerLocation != null && NumericUtils.isDouble(serializedFlag.radius) && NumericUtils.isDouble(serializedFlag.bossBarRadius)) {
+                    createFlag(serializedFlag.name, centerLocation, Double.parseDouble(serializedFlag.radius), Double.parseDouble(serializedFlag.bossBarRadius));
+                }
+            }
+        }
     }
 
     public String getName() { return name; }
@@ -142,4 +166,14 @@ public class Game {
 
         return new SerializedGame(this, serializedFlags);
     }
+
+	public List<String> getFlagsNames() {
+        List<String> flagsNames = Lists.newArrayList();
+
+        for (Flag flag : flags) {
+            flagsNames.add(flag.getName());
+        }
+
+		return flagsNames;
+	}
 }

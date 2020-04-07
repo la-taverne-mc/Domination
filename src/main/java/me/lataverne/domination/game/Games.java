@@ -15,6 +15,14 @@ public class Games {
         this.games = Lists.newArrayList();
     }
 
+    public Games(@NotNull List<SerializedGame> serializedGames) {
+        this.games = Lists.newArrayList();
+
+        for (SerializedGame serializedGame : serializedGames) {
+            this.games.add(new Game(serializedGame));
+        }
+    }
+
     public boolean createGame(@NotNull String name) {
         if (getGameByName(name) != null) return false;
 
