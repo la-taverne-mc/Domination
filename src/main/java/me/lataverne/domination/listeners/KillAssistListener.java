@@ -8,6 +8,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.lataverne.domination.Main;
+import me.lataverne.domination.game.Game;
 import me.lataverne.domination.tasks.KillAssistTimeoutTask;
 
 public class KillAssistListener implements Listener {
@@ -24,6 +25,11 @@ public class KillAssistListener implements Listener {
 
         Player damaged = ((Player) event.getEntity());
         Player damager = ((Player) event.getDamager());
+
+        Game damagedGame = Main.games.getPlayerGame(damaged);
+        Game damagerGame = Main.games.getPlayerGame(damager);
+
+        if (damagedGame == null || damagerGame == null || damagedGame != damagerGame) return;
 
         if (Main.killAssists.containsKey(damaged))
             Main.killAssists.replace(damaged, damager);
