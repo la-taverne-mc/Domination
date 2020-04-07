@@ -65,11 +65,11 @@ public class FileManager {
         }
     }
 
-    public void delete() {
-        if (file != null) {
-            file.delete();
+    public void clear() {
+        if (fileConfiguration != null) {
+            for (String key : getContent().getKeys(false)) {
+                getContent().set(key, null);
+            }
         }
-
-        reloadContent();
     }
 }
