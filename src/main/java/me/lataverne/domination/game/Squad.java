@@ -24,14 +24,7 @@ public class Squad {
         this.name = name;
         this.team = team;
         this.players = new HashSet<Player>();
-        this.score = 0;
-        this.oldTeams = new HashMap<Player, Team>();
-    }
-
-    public Squad(@NotNull String name, @NotNull Team team, @NotNull Set<Player> players) {
-        this.name = name;
-        this.team = team;
-        this.players = players;
+        this.spawn = null;
         this.score = 0;
         this.oldTeams = new HashMap<Player, Team>();
     }
