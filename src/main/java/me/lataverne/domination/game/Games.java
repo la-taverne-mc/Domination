@@ -68,7 +68,7 @@ public class Games {
 
     public @Nullable Game getPlayerGame(@NotNull Player player) {
         for (Game game : games) {
-            if (game.hasPlayer(player)) return game;
+            if (game.isRunning() && game.hasPlayer(player)) return game;
         }
 
         return null;
