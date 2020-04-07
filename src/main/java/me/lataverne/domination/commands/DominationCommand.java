@@ -60,8 +60,8 @@ public class DominationCommand implements TabExecutor {
 
                     sender.sendMessage("§eVoici une liste de toutes les games ayant été créée :");
 
-                    for (String gameName : games.getGamesNames()) {
-                        sender.sendMessage("§e   " + gameName);
+                    for (String gameName : gameList) {
+                        sender.sendMessage("§e - " + gameName);
                     }
 
                     return true;
@@ -170,6 +170,34 @@ public class DominationCommand implements TabExecutor {
                     sender.sendMessage("§eLe flag '" + args[1] + "' a bien été ajouté à la game '" + game.getName() + "'");
                     return true;
 
+                case "listflags":
+                    if (args.length != 2) {
+                        sender.sendMessage("§cUsage : /domination listFlags <game>");
+                        return false;
+                    }
+
+                    game = games.getGameByName(args[1]);
+
+                    if (game == null) {
+                        sender.sendMessage("§cIl n'y a pas de game nommée '" + args[1] + "'");
+                        return false;
+                    }
+
+                    List<String> flagList = game.getFlagsNames();
+
+                    if (flagList.isEmpty()) {
+                        sender.sendMessage("§cIl n'y a actuellement pas de flag dans la game '" + game.getName() + "'");
+                        return true;
+                    }
+
+                    sender.sendMessage("§eVoici une liste de tout les flags ayant été créé dans la game '" + game.getName() + "' :");
+
+                    for (String flagName : flagList) {
+                        sender.sendMessage("§e - " + flagName);
+                    }
+
+                    return true;
+
                 case "setteam":
                     if (args.length != 4) {
                         sender.sendMessage("§cUsage : /domination setTeam <game> <player> <team>");
@@ -265,11 +293,12 @@ public class DominationCommand implements TabExecutor {
         if (command.getName().equalsIgnoreCase("domination")) {
             switch (args.length) {
                 case 1:
-                    return getStringsStartingWith(args[0], Lists.newArrayList("createGame", "listGames", "startGame", "stopGame", "createFlag", "setTeam", "setSpawn"));
+                    return getStringsStartingWith(args[0], Lists.newArrayList("createGame", "listGames", "startGame", "stopGame", "createFlag", "listFlags", "setTeam", "setSpawn"));
 
                 case 2:
                     switch (args[0].toLowerCase()) {
                         case "startgame":
+                        case "listflags":
                         case "setteam":
                         case "setspawn":
                             return getStringsStartingWith(args[1], games.getGamesNames());
