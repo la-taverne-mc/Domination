@@ -72,12 +72,30 @@ public class Main extends JavaPlugin {
     private void loadGames() {
         saveFile = new FileManager(this, "save.yml");
         saveContent = saveFile.getContent();
-        
-        games = new Games();
+
+        List<SerializedGame> serializedGames = Lists.newArrayList();
+        for (String gameName : saveContent.getKeys(false)) {
+            String blueSpawn = saveContent.getString(gameName + ".blueSpawn");
+            String redSpawn = saveContent.getString(gameName + ".redSpawn");
+
+            List<SerializedFlag> flags = Lists.newArrayList();
+            if (saveContent.isSet(gameName + ".flags")) {
+                for (String flagName : saveContent.getConfigurationSection(gameName + ".flags").getKeys(false)) {
+                    String centerLocation = saveContent.getString(gameName + ".flags." + flagName + ".centerLocation");
+                    String radius = saveContent.getString(gameName + ".flags." + flagName + ".radius");
+                    String bossBarRadius = saveContent.getString(gameName + ".flags." + flagName + ".bossBarRadius");
+                    flags.add(new SerializedFlag(flagName, centerLocation, radius, bossBarRadius));
+                }
+            }
+
+            serializedGames.add(new SerializedGame(gameName, blueSpawn, redSpawn, flags));
+        }
+
+        games = new Games(serializedGames);
     }
 
     private void saveGames() {
-        saveFile.delete();
+        saveFile.clear();
 
         List<SerializedGame> serializedGames = games.serialize();
 
